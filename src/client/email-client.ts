@@ -131,4 +131,20 @@ export class EmailClient {
             }
         )
     }
+
+    downloadAttachment(downloadAttachmentRequest: requests.downloadAttachmentRequest, auth_key: string[]){
+        axios.get(url + '/api/attachment', {params: downloadAttachmentRequest, headers: {
+            "Content-Type": "application/json",
+            "Cookie": auth_key
+          }})
+        .then((response) =>  {
+            console.log(response.status);
+            return response.data;
+            })
+        .catch((err) => {
+            console.log(err);
+            return err;
+            }
+        )
+    }
 }

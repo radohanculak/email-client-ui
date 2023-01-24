@@ -1,6 +1,7 @@
 export interface singInRequest{
     "email": string, 
-    "password": string,  
+    "password": string,
+    "domain": string
 }
 
 export interface listEmailsRequest{
@@ -25,4 +26,10 @@ export interface sendEmailRequest{
     "subject": string,
     "body": string,
     "stuff": File
+}
+
+export interface downloadAttachmentRequest{
+    "mailbox_name": string,
+    "sequence_number": number,
+    "attachment_name" : string
 }
