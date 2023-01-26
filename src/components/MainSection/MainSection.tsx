@@ -1,13 +1,17 @@
 import MainSectionUpperBar from '../MainSectionUpperBar/MainSectionUpperBar';
 import InputArea from '../InputArea/InputArea';
-import MainSectionControls from '../MainSectionControls/MainSectionControls';
+import EmailViewArea from '../EmailViewArea/EmailViewArea';
+import { Routes, Route, useParams } from 'react-router-dom';
 
 export const MainSection = () => {
   return (
-    <div className="d-flex flex-column align-items-stretch flex-grow-1 bg-white">
+    <div className="d-flex flex-column align-items-stretch justify-content-between flex-grow-1 bg-white">
       <MainSectionUpperBar />
-      <InputArea />
-      <MainSectionControls />
+      <Routes>
+        <Route path="email/:id" element={<EmailViewArea />} />
+        <Route path="compose/" element={<InputArea />} />
+        <Route path="*" element={<InputArea />} />
+      </Routes>
     </div>
   );
 };
