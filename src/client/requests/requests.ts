@@ -1,4 +1,4 @@
-export interface singInRequest{
+export interface signInRequest{
     "email": string, 
     "password": string,
     "domain": string

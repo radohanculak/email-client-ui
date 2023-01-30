@@ -6,4 +6,14 @@ export const inputFormState = atom<EmailInput>({
   default: {recipient: '', subject: '', body: ''},
 });
 
-export default inputFormState;
+export const currentMailboxState = atom<string>({
+  key: 'currentMailboxState',
+  default: 'INBOX'
+})
+
+export const isLoggedInState = atom<boolean>({
+  key: 'isLoggedInState',
+  default: false
+})
+
+export default { inputFormState, currentMailboxState, isLoggedInState };

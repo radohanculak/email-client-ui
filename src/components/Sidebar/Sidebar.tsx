@@ -1,8 +1,10 @@
 import SidebarButton from '../SidebarButton/SidebarButton';
 import SidebarDropdown from '../SidebarDropdown/SidebarDropdown';
+import { EmailClient } from '../../client/email-client';
 import './Sidebar.css';
 
 export const Sidebar = () => {
+  const client = new EmailClient();
   const sidebarButtons = ['Home', 'Dashboard', 'Orders', 'Products'];
 
   return (
@@ -16,7 +18,7 @@ export const Sidebar = () => {
         </a>
         <hr />
 
-        <ul className="nav nav-pills flex-column mb-auto">
+        <ul className="nav flex-column mb-auto">
           {sidebarButtons.map((button) => (
             <SidebarButton name={button} />
           ))}

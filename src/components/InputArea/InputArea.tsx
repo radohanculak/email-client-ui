@@ -1,5 +1,5 @@
 import { useRecoilState, useResetRecoilState } from 'recoil';
-import inputFormState from '../../recoil/atoms';
+import { inputFormState } from '../../recoil/atoms';
 
 export const InputArea = () => {
   const [formInput, setFormInput] = useRecoilState(inputFormState);

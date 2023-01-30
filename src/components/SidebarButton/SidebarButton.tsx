@@ -1,15 +1,19 @@
+import { useRecoilState } from 'recoil';
+import { currentMailboxState } from '../../recoil/atoms';
+
 interface SidebarButtonProps {
   name: string;
 }
 
 export const SidebarButton = ({ name }: SidebarButtonProps) => {
+  const [currentMaibox, setCurrentMailbox] = useRecoilState(currentMailboxState);
+  const textColor = currentMaibox === name ? 'text-warning' : 'text-light';
   return (
-    <a href="#" className="nav-link text-white">
-      <svg className="bi pe-none me-2" width="16" height="16">
-        <use xlinkHref="#speedometer2" />
-      </svg>
-      {name}
-    </a>
+    <li className="nav-item">
+      <a href="#" onClick={() => setCurrentMailbox(name)} className={`nav-link active ${textColor}`}>
+        {name}
+      </a>
+    </li>
   );
 };
 
