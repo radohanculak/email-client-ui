@@ -1,12 +1,12 @@
 import { useSetRecoilState } from 'recoil';
 
-import { signOut } from '../../client/email-client';
+import { client } from '../../client/email-client';
 import { isLoggedInState } from '../../recoil/atoms';
 
 export const SidebarDropdown = () => {
   const setLogInState = useSetRecoilState(isLoggedInState);
   const signOutHandler = async () => {
-    const res = await signOut()
+    const res = await client.signOut()
       .then((r) => console.log(r))
       .catch((e) => console.log(e));
     setLogInState(false);

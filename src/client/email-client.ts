@@ -1,33 +1,30 @@
 import axios from 'axios';
 import * as requests from './requests/requests';
 import FormData from 'form-data';
-import * as dotenv from 'dotenv';
-// dotenv.config()
 
-// const url = process.env.URL ?? '';
+axios.defaults.withCredentials = true;
 const url = 'http://localhost:8765';
 
-export const signIn = (signInRequest: requests.signInRequest) => {
-  return (axios
-    .post(url + '/auth/sign-in', signInRequest, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }));
-};
+class EmailClient {
+  signIn(signInRequest: requests.signInRequest) {
+    return axios
+      .post(url + '/auth/sign-in', signInRequest, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  };
 
-export const signOut = () => {
-  return (axios
-    .post(url + '/auth/sign-out', {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }));
-};
+  signOut(){
+    return (axios
+      .post(url + '/auth/sign-out', {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }));
+  };
 
-
-export class EmailClient {
-  sendEmail(sendEmailRequest: requests.sendEmailRequest, auth_key: string[]) {
+  sendEmail(sendEmailRequest: requests.sendEmailRequest) {
     const formData = new FormData();
     formData.append('to_address', sendEmailRequest.to_address);
     formData.append('subject', sendEmailRequest.subject);
@@ -36,123 +33,63 @@ export class EmailClient {
     axios
       .post(url + '/api/email/send', formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
-          Cookie: auth_key,
+          'Content-Type': 'multipart/form-data'
         },
-      })
-      .then((response) => {
-        console.log(response.status);
-        return response.data;
-      })
-      .catch((err) => {
-        console.log(err);
-        return err;
       });
   }
 
   ping() {
     axios
-      .get(url + '/app')
-      .then((response) => {
-        console.log(response.status);
-        return response.data;
-      })
-      .catch((err) => {
-        console.log(err);
-        return err;
-      });
+      .get(url + '/app');
   }
 
-  listEmails(listEmailsRequest: requests.listEmailsRequest, auth_key: string[]) {
+  listEmails(listEmailsRequest: requests.listEmailsRequest) {
     axios
       .get(url + '/api/email', {
         params: listEmailsRequest,
         headers: {
           'Content-Type': 'application/json',
-          Cookie: auth_key,
         },
-      })
-      .then((response) => {
-        console.log(response.status);
-        return response.data;
-      })
-      .catch((err) => {
-        console.log(err);
-        return err;
       });
   }
 
-  async listMailboxes(auth_key: string[]) {
+  async listMailboxes() {
     axios
-      .get(url + '/api/mailbox', {
-        headers: {
-          Cookie: auth_key,
-        },
-      })
-      .then((response) => {
+      .get(url + '/api/mailbox').then((response) => {
         console.log(response.status);
         return response.data;
-      })
-      .catch((err) => {
-        console.log(err);
-        return err;
       });
   }
 
-  getEmailInDetail(emailDetailRequest: requests.emailDetailRequest, auth_key: string[]) {
+  getEmailInDetail(emailDetailRequest: requests.emailDetailRequest) {
     axios
       .get(url + '/api/emailDetail', {
         params: emailDetailRequest,
         headers: {
           'Content-Type': 'application/json',
-          Cookie: auth_key,
         },
-      })
-      .then((response) => {
-        console.log(response.status);
-        return response.data;
-      })
-      .catch((err) => {
-        console.log(err);
-        return err;
       });
   }
 
-  deleteEmail(deleteEmailRequest: requests.deleteEmailRequest, auth_key: string[]) {
+  deleteEmail(deleteEmailRequest: requests.deleteEmailRequest) {
     axios
       .delete(url + 'api/email', {
         params: deleteEmailRequest,
         headers: {
           'Content-Type': 'application/json',
-          Cookie: auth_key,
         },
-      })
-      .then((response) => {
-        console.log(response.status);
-        return response.data;
-      })
-      .catch((err) => {
-        console.log(err);
-        return err;
       });
   }
 
-  downloadAttachment(downloadAttachmentRequest: requests.downloadAttachmentRequest, auth_key: string[]) {
+  downloadAttachment(downloadAttachmentRequest: requests.downloadAttachmentRequest) {
     axios
       .get(url + '/api/attachment', {
         params: downloadAttachmentRequest,
         headers: {
           'Content-Type': 'application/json',
-          Cookie: auth_key,
         },
-      })
-      .then((response) => {
-        console.log(response.status);
-        return response.data;
-      })
-      .catch((err) => {
-        console.log(err);
-        return err;
       });
   }
 }
+
+export const client = new EmailClient();

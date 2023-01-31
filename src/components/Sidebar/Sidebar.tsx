@@ -1,10 +1,8 @@
 import SidebarButton from '../SidebarButton/SidebarButton';
 import SidebarDropdown from '../SidebarDropdown/SidebarDropdown';
-import { EmailClient } from '../../client/email-client';
 import './Sidebar.css';
 
 export const Sidebar = () => {
-  const client = new EmailClient();
   const sidebarButtons = ['Home', 'Dashboard', 'Orders', 'Products'];
 
   return (

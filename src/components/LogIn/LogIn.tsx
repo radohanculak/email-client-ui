@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useSetRecoilState } from 'recoil';
 
-import { signIn } from '../../client/email-client';
+import { client } from '../../client/email-client';
 import { signInRequest } from '../../client/requests';
 import { isLoggedInState } from '../../recoil/atoms';
 
@@ -10,15 +10,15 @@ export const LogIn = () => {
   const { register, handleSubmit } = useForm();
 
   const submitCreds = async (data: any) => {
-    const res = await signIn(data as signInRequest)
+    const res: any = await client.signIn(data as signInRequest)
       .then((r) => {
+        if(r.status === 200){
+          setLogInState(true);
+        }
         return r;
+
       })
       .catch((err) => console.log(`ERR: ${err}`));
-
-    if (res.status === 200) {
-      setLogInState(true);
-    }
   };
 
   return (
