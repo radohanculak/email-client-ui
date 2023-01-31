@@ -16,4 +16,9 @@ export const isLoggedInState = atom<boolean>({
   default: false
 })
 
-export default { inputFormState, currentMailboxState, isLoggedInState };
+export const currentPageState = atom<number>({
+  key: 'currentPageState',
+  default: 1
+})
+
+export default { inputFormState, currentMailboxState, isLoggedInState, currentPageState };

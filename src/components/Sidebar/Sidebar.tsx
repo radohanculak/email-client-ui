@@ -5,15 +5,19 @@ import SidebarDropdown from '../SidebarDropdown/SidebarDropdown';
 import { client } from '../../client/email-client';
 
 import './Sidebar.css';
+import { useSetRecoilState } from 'recoil';
+import { currentMailboxState } from '../../recoil/atoms';
 
 export const Sidebar = () => {
   const [mailboxes, setMailboxes] = useState([]);
+  const setCurrentMailbox = useSetRecoilState(currentMailboxState);
 
   const getMailboxes = () => {
     client
       .listMailboxes()
       .then((res) => {
         setMailboxes(res.data.mailbox_names);
+        setCurrentMailbox(res.data.mailbox_names[0] ?? 'INBOX');
       })
       .catch((err) => console.log(err));
   };

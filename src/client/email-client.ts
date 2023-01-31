@@ -45,7 +45,7 @@ class EmailClient {
   }
 
   listEmails(listEmailsRequest: requests.listEmailsRequest) {
-    axios
+    return axios
       .get(url + '/api/email', {
         params: listEmailsRequest,
         headers: {
