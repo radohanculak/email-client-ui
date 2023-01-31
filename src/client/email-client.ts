@@ -2,7 +2,9 @@ import axios from 'axios';
 import * as requests from './requests/requests';
 import FormData from 'form-data';
 
-const url = process.env.REACT_APP_URL;
+// const url = process.env.REACT_APP_URL;
+const url = 'http://localhost:8765';
+axios.defaults.withCredentials = true;
 
 class EmailClient {
   signIn(signInRequest: requests.signInRequest) {
@@ -52,12 +54,14 @@ class EmailClient {
       });
   }
 
-  async listMailboxes() {
-    axios
-      .get(url + '/api/mailbox').then((response) => {
-        console.log(response.status);
-        return response.data;
+  listMailboxes() {
+    return axios
+      .get(url + '/api/mailbox', {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
+      // .then((res) => {res.data.mailbox_names}).catch((err) => (console.log(err)));
   }
 
   getEmailInDetail(emailDetailRequest: requests.emailDetailRequest) {

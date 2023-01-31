@@ -6,7 +6,8 @@ import { isLoggedInState } from '../../recoil/atoms';
 export const SidebarDropdown = () => {
   const setLogInState = useSetRecoilState(isLoggedInState);
   const signOutHandler = async () => {
-    const res = await client.signOut()
+    const res = await client
+      .signOut()
       .then((r) => console.log(r))
       .catch((e) => console.log(e));
     setLogInState(false);

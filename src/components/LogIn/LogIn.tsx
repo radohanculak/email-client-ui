@@ -10,13 +10,13 @@ export const LogIn = () => {
   const { register, handleSubmit } = useForm();
 
   const submitCreds = async (data: any) => {
-    const res: any = await client.signIn(data as signInRequest)
+    const res: any = await client
+      .signIn(data as signInRequest)
       .then((r) => {
-        if(r.status === 200){
+        if (r.status === 200) {
           setLogInState(true);
         }
         return r;
-
       })
       .catch((err) => console.log(`ERR: ${err}`));
   };

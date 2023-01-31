@@ -17,10 +17,10 @@ export const EmailPreview = ({ read, receivedAt, subject, sender }: EmailPreview
   return (
     <a href="#" className="list-group-item list-group-item-action py-3 lh-sm">
       <div className="d-flex w-100 align-items-center justify-content-between">
-        <strong className="mb-1">{subject}</strong>
+        <strong className="mb-1">{subject + 'superlong text that is very LOOONG'}</strong>
         <small className="text-muted">{timeRecord}</small>
       </div>
-      {/* <div className="col-10 mb-1 small">{text}</div> */}
+      <div className="col-10 mb-1 small">{sender}</div>
     </a>
   );
 };

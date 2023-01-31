@@ -1,9 +1,24 @@
+import { useEffect, useState } from 'react';
+
 import SidebarButton from '../SidebarButton/SidebarButton';
 import SidebarDropdown from '../SidebarDropdown/SidebarDropdown';
+import { client } from '../../client/email-client';
+
 import './Sidebar.css';
 
 export const Sidebar = () => {
-  const sidebarButtons = ['Home', 'Dashboard', 'Orders', 'Products'];
+  const [mailboxes, setMailboxes] = useState([]);
+
+  const getMailboxes = () => {
+    client
+      .listMailboxes()
+      .then((res) => {
+        setMailboxes(res.data.mailbox_names);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => getMailboxes(), []);
 
   return (
     <>
@@ -17,8 +32,8 @@ export const Sidebar = () => {
         <hr />
 
         <ul className="nav flex-column mb-auto">
-          {sidebarButtons.map((button) => (
-            <SidebarButton name={button} />
+          {mailboxes.map((mailboxName: any) => (
+            <SidebarButton key={mailboxName} name={mailboxName} />
           ))}
         </ul>
         <hr />
