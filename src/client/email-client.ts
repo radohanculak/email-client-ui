@@ -2,8 +2,7 @@ import axios from 'axios';
 import * as requests from './requests/requests';
 import FormData from 'form-data';
 
-axios.defaults.withCredentials = true;
-const url = 'http://localhost:8765';
+const url = process.env.REACT_APP_URL;
 
 class EmailClient {
   signIn(signInRequest: requests.signInRequest) {
