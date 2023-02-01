@@ -11,7 +11,14 @@ export const PaginationBar = () => {
       <div className="container-fluid">
         <ul className="pagination mb-0">
           <li className="page-item">
-            <a className="page-link" href="#" aria-label="Previous" onClick={() => setCurrentPage(currentPage - 1)}>
+            <a
+              className="page-link"
+              href="#"
+              aria-label="Previous"
+              onClick={() => {
+                currentPage > 1 ? setCurrentPage(currentPage - 1) : setCurrentPage(1);
+              }}
+            >
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>

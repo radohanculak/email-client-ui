@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 
 export const EmailViewArea = () => {
-  // const emailClient = new EmailClient();
   return (
     <>
       <div className="flex-grow-1">

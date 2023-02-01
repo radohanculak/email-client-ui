@@ -1,4 +1,5 @@
 import { atom } from "recoil";
+import DisplayedEmail from "../models/displayedEmail";
 import EmailInput from "../models/emailInput";
 
 export const inputFormState = atom<EmailInput>({
@@ -19,6 +20,11 @@ export const isLoggedInState = atom<boolean>({
 export const currentPageState = atom<number>({
   key: 'currentPageState',
   default: 1
+})
+
+export const currentEmailState = atom<DisplayedEmail>({
+  key: 'currentEmailState',
+  default: {mailbox: 'INBOX', seq: 0}
 })
 
 export default { inputFormState, currentMailboxState, isLoggedInState, currentPageState };

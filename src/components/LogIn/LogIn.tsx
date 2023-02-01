@@ -10,7 +10,7 @@ export const LogIn = () => {
   const { register, handleSubmit } = useForm();
 
   const submitCreds = async (data: any) => {
-    const res: any = await client
+    await client
       .signIn(data as signInRequest)
       .then((r) => {
         if (r.status === 200) {

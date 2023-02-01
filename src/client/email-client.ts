@@ -61,11 +61,10 @@ class EmailClient {
           'Content-Type': 'application/json',
         },
       });
-      // .then((res) => {res.data.mailbox_names}).catch((err) => (console.log(err)));
   }
 
   getEmailInDetail(emailDetailRequest: requests.emailDetailRequest) {
-    axios
+    return axios
       .get(url + '/api/emailDetail', {
         params: emailDetailRequest,
         headers: {
