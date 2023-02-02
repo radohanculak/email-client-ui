@@ -92,6 +92,17 @@ class EmailClient {
         },
       });
   }
+
+  async sendNotifitcation(notificationRequest: requests.sendNotificationRequest) {
+    Notification.requestPermission().then(perm => {
+      if (perm == "granted") {
+        new Notification(notificationRequest.title, {
+          body: notificationRequest.body,
+          icon: notificationRequest.body
+        }) 
+      }
+    });
+  }
 }
 
 export const client = new EmailClient();

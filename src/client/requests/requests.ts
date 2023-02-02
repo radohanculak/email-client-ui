@@ -33,3 +33,8 @@ export interface downloadAttachmentRequest{
     "sequence_number": number,
     "attachment_name" : string
 }
+
+export interface sendNotificationRequest{
+    "title": string,
+    "body": string
+}
