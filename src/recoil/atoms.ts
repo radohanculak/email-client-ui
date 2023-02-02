@@ -1,4 +1,5 @@
 import { atom } from "recoil";
+import { emailDetailRequest } from "../client/requests";
 import DisplayedEmail from "../models/displayedEmail";
 import EmailInput from "../models/emailInput";
 
@@ -22,9 +23,9 @@ export const currentPageState = atom<number>({
   default: 1
 })
 
-export const currentEmailState = atom<DisplayedEmail>({
+export const currentEmailState = atom<emailDetailRequest>({
   key: 'currentEmailState',
-  default: {mailbox: 'INBOX', seq: 0}
+  default: {mailbox_name: 'INBOX', sequence_number: 0}
 })
 
 export default { inputFormState, currentMailboxState, isLoggedInState, currentPageState };

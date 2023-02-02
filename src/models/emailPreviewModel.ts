@@ -1,4 +1,5 @@
 export interface EmailPreviewModel {
+  sequence_number: number;
   from_address: string,
   subject: string,
   was_read: boolean,
