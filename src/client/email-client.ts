@@ -2,8 +2,7 @@ import axios from 'axios';
 import * as requests from './requests/requests';
 import FormData from 'form-data';
 
-// const url = process.env.REACT_APP_URL;
-const url = 'http://localhost:8765';
+const url =  import.meta.env.VITE_URL;
 axios.defaults.withCredentials = true;
 
 class EmailClient {
