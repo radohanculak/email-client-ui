@@ -93,7 +93,7 @@ class EmailClient {
       });
   }
 
-  async sendNotifitcation(notificationRequest: requests.sendNotificationRequest) {
+  sendNotifitcation(notificationRequest: requests.sendNotificationRequest) {
     Notification.requestPermission().then(perm => {
       if (perm == "granted") {
         new Notification(notificationRequest.title, {
