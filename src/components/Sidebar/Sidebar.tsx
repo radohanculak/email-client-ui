@@ -16,8 +16,8 @@ export const Sidebar = () => {
     client
       .listMailboxes()
       .then((res) => {
-        setMailboxes(res.data.mailbox_names);
-        setCurrentMailbox(res.data.mailbox_names[0] ?? 'INBOX');
+        setMailboxes(res.data.mailboxes);
+        setCurrentMailbox(res.data.mailboxes[0].name ?? 'INBOX');
       })
       .catch((err) => console.log(err));
   };
@@ -36,8 +36,8 @@ export const Sidebar = () => {
         <hr />
 
         <ul className="nav flex-column mb-auto">
-          {mailboxes.map((mailboxName: any) => (
-            <SidebarButton key={mailboxName} name={mailboxName} />
+          {mailboxes.map((mailbox: any) => (
+            <SidebarButton key={mailbox.name} name={mailbox.name} />
           ))}
         </ul>
         <hr />

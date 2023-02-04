@@ -73,7 +73,7 @@ class EmailClient {
   }
 
   deleteEmail(deleteEmailRequest: requests.deleteEmailRequest) {
-    axios
+    return axios
       .delete(url + 'api/email', {
         params: deleteEmailRequest,
         headers: {
@@ -83,12 +83,13 @@ class EmailClient {
   }
 
   downloadAttachment(downloadAttachmentRequest: requests.downloadAttachmentRequest) {
-    axios
+    return axios
       .get(url + '/api/attachment', {
         params: downloadAttachmentRequest,
         headers: {
           'Content-Type': 'application/json',
         },
+        responseType: 'blob'
       });
   }
 

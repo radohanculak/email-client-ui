@@ -23,7 +23,7 @@ export const EmailPreview = ({ seq, read, receivedAt, subject, sender }: EmailPr
   return (
     // <Link to={`email/${currentMailbox}/${seq}`}>
     <a
-      href="#"
+      href={"/email/" + seq + "#"}
       onClick={() => {
         console.log(`seq: ${seq}`);
         setCurrentEmailState({ mailbox_name: currentMailbox, sequence_number: seq });
