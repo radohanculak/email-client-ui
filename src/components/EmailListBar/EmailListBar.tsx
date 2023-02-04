@@ -23,7 +23,7 @@ export const EmailListBar = () => {
 
   const reqData = {
     mailbox_name: currentMailbox,
-    requested_page_number: currentPage,
+    requested_page_number: currentPage - 1, // On BE Indexing is from 0
     page_size: 4,
   };
 

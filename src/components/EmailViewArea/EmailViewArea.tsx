@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { client } from '../../client/email-client';
 import { currentEmailState } from '../../recoil/atoms';
@@ -10,6 +10,12 @@ import { downloadAttachmentRequest } from '../../client/requests';
 
 export const EmailViewArea = () => {
   const currentEmail = useRecoilValue(currentEmailState);
+  const navigate = useNavigate();
+
+  const { id } = useParams();
+  if (id != String(currentEmail.sequence_number)) {
+    navigate("/");
+  }
   const [fetchedEmail, setFetchedEmail] = useState(emptyEmailDetail);
 
   const getEmail = (data: emailDetailRequest) => {
