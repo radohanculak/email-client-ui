@@ -25,7 +25,7 @@ export const currentPageState = atom<number>({
 
 export const currentEmailState = atom<emailDetailRequest>({
   key: 'currentEmailState',
-  default: {mailbox_name: 'INBOX', sequence_number: 0}
+  default: {mailbox_name: 'INBOX', sequence_number: 1}
 })
 
 export default { inputFormState, currentMailboxState, isLoggedInState, currentPageState };

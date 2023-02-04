@@ -25,7 +25,7 @@ export interface sendEmailRequest{
     "to_address": string,
     "subject": string,
     "body": string,
-    "stuff": File
+    "stuff": FileList
 }
 
 export interface downloadAttachmentRequest{

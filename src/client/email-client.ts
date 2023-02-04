@@ -29,8 +29,9 @@ class EmailClient {
     formData.append('to_address', sendEmailRequest.to_address);
     formData.append('subject', sendEmailRequest.subject);
     formData.append('body', sendEmailRequest.body);
-    formData.append('stuff', sendEmailRequest.stuff);
-    axios
+    formData.append('stuff', sendEmailRequest.stuff[0]);
+    console.log(sendEmailRequest.stuff[0]);
+    return axios
       .post(url + '/api/email/send', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'

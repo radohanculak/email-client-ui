@@ -32,7 +32,7 @@ export const EmailListBar = () => {
   return (
     <div
       className="d-flex flex-column justify-content-between align-items-stretch flex-shrink-1 bg-white"
-      style={{ width: '380px' }}
+      style={{ width: '340px' }}
     >
       <PaginationBar />
 

@@ -5,7 +5,7 @@ import { currentEmailState } from '../../recoil/atoms';
 import { emailDetailRequest } from '../../client/requests';
 import emptyEmailDetail from '../../models/emptyEmailDetail';
 import { useEffect, useState } from 'react';
-import fileDownload from 'js-file-download'
+import fileDownload from 'js-file-download';
 import { downloadAttachmentRequest } from '../../client/requests';
 
 export const EmailViewArea = () => {
@@ -25,58 +25,53 @@ export const EmailViewArea = () => {
   };
 
   const downloadAttachments = () => {
-    console.log("download attachments");
-    fetchedEmail.attachments.map((a: any) => {client.downloadAttachment({mailbox_name: currentEmail.mailbox_name, sequence_number: currentEmail.sequence_number, attachment_name: a.file_name}).then((res: any) => fileDownload(res.data, a.file_name))}); 
-  }
+    console.log('download attachments');
+    fetchedEmail.attachments.map((a: any) => {
+      client
+        .downloadAttachment({
+          mailbox_name: currentEmail.mailbox_name,
+          sequence_number: currentEmail.sequence_number,
+          attachment_name: a.file_name,
+        })
+        .then((res: any) => fileDownload(res.data, a.file_name));
+    });
+  };
 
   useEffect(() => getEmail(currentEmail), [currentEmail]);
 
   return (
-    <>      
+    <>
       <div className="input-group px-3 py-2">
         <span className="input-group-text" id="basic-addon1">
           From:
         </span>
-        <input
-          type="email"
-          value={fetchedEmail.from_address}
-          className="form-control"
-          readOnly={true}
-        />
+        <input type="email" value={fetchedEmail.from_address} className="form-control" readOnly={true} />
       </div>
       <div className="input-group px-3 py-2">
         <span className="input-group-text" id="basic-addon1">
           Subject:
         </span>
-        <input
-          type="text"
-          value={fetchedEmail.subject}
-          className="form-control"
-          readOnly={true}
-        />
+        <input type="text" value={fetchedEmail.subject} className="form-control" readOnly={true} />
       </div>
       <div className="container-fluid flex-grow-1 pt-2 pb-4">
         <div className="input-group h-100">
-          <textarea
-            className="form-control"
-            value={fetchedEmail.body_text}
-            readOnly={true}
-          />
+          <textarea className="form-control" value={fetchedEmail.body_text} readOnly={true} />
         </div>
       </div>
       <div className="container-fluid">
-        
-      Attachments:
+        Attachments:
         <div className="input-group h-50">
-          
           <textarea
             className="form-control"
             value={fetchedEmail.attachments.map((a: any) => a.file_name)}
             readOnly={true}
           />
-          <button type="button" className="btn btn-primary" onClick={downloadAttachments}>Download</button>
+          <button type="button" className="btn btn-primary" onClick={downloadAttachments}>
+            Download
+          </button>
         </div>
       </div>
+      <div> {fetchedEmail.body_text}</div>
       <nav className="navbar navbar-dark bg-dark">
         <div className="container-fluid">
           <button type="button" className="btn btn-outline-danger mx-2">
