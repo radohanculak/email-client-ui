@@ -14,6 +14,10 @@ export const LogIn = () => {
       .signIn(data as signInRequest)
       .then((r) => {
         if (r.status === 200) {
+          client.sendNotifitcation({
+            title: 'R-Mail',
+            body: 'Authentication successful'
+          });
           setLogInState(true);
         }
         return r;

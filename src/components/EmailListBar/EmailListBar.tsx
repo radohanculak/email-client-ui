@@ -2,21 +2,27 @@ import PaginationBar from '../PaginationBar/PaginationBar';
 import EmailPreview from '../EmailPreview/EmailPreview';
 import EmailPreviewModel from '../../models/emailPreviewModel';
 import { listEmailsRequest } from '../../client/requests';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { client } from '../../client/email-client';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { currentMailboxState, currentPageState } from '../../recoil/atoms';
+import ListEmailsModel from '../../models/listEmails';
+
+const REFRESH_TIMER_MS = 10000;
 
 export const EmailListBar = () => {
-  const [emailPreviews, setEmailPreviews] = useState([]);
+  const [emailPreviews, setEmailPreviews] = useState<ListEmailsModel>();
   const currentMailbox = useRecoilValue(currentMailboxState);
   const currentPage = useRecoilValue(currentPageState);
+  const [previousCount, setPrevCount] = useState<number>();
 
   const getPreviews = (data: listEmailsRequest) => {
     client
       .listEmails(data)
       .then((res) => {
-        setEmailPreviews(res.data.emails);
+        if (currentPage - 1 == data.requested_page_number) {
+          setEmailPreviews(res.data);
+        }
       })
       .catch((err) => console.log(err));
   };
@@ -28,6 +34,25 @@ export const EmailListBar = () => {
   };
 
   useEffect(() => getPreviews(reqData), [currentMailbox, currentPage]);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      getPreviews(reqData)
+    }, REFRESH_TIMER_MS);
+    console.log("Mounting");
+    return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
+  }, [])
+  useEffect(() => {
+    if (previousCount && emailPreviews?.total_emails_count != previousCount && currentMailbox == "INBOX"){
+      client.sendNotifitcation({
+        title: 'R-Mail',
+        body: 'New email received'
+      });
+    }
+
+    if (currentMailbox == "INBOX"){
+      setPrevCount(emailPreviews?.total_emails_count);
+    }
+  }, [emailPreviews]);
 
   return (
     <div
@@ -37,7 +62,7 @@ export const EmailListBar = () => {
       <PaginationBar />
 
       <div className="d-flex list-group list-group-flush flex-column-reverse justify-content-end flex-grow-1 scrollarea">
-        {emailPreviews.map((email: EmailPreviewModel) => (
+        {emailPreviews?.emails.map((email: EmailPreviewModel) => (
           <EmailPreview
             key={email.subject + email.send_date}
             seq={email.sequence_number}
