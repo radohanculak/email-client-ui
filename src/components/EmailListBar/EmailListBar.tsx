@@ -61,7 +61,7 @@ export const EmailListBar = () => {
       className="d-flex flex-column justify-content-between align-items-stretch flex-shrink-1 bg-white"
       style={{ width: '340px' }}
     >
-      <PaginationBar />
+      <nav className="navbar flex-shrink-0 navbar-dark bg-dark" style={{ height: '54px' }} />
 
       <div className="d-flex list-group list-group-flush flex-column-reverse justify-content-end flex-grow-1 scrollarea">
         {emailPreviews?.emails.map((email: EmailPreviewModel) => (
@@ -75,8 +75,7 @@ export const EmailListBar = () => {
           />
         ))}
       </div>
-
-      <nav className="navbar navbar-dark bg-dark" style={{ height: '54px' }} />
+      <PaginationBar />
     </div>
   );
 };

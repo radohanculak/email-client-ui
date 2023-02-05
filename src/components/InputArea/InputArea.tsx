@@ -25,7 +25,7 @@ export const InputArea = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(sendEmail)}>
+    <form className="d-flex flex-column flex-grow-1 justify-content-between" onSubmit={handleSubmit(sendEmail)}>
       <div className="input-group px-3 py-2">
         <span className="input-group-text" id="basic-addon1">
           To:
@@ -41,6 +41,7 @@ export const InputArea = () => {
           placeholder="To"
         />
       </div>
+
       <div className="input-group px-3 py-2">
         <span className="input-group-text" id="basic-addon1">
           Subject:
@@ -56,29 +57,33 @@ export const InputArea = () => {
           placeholder="Subject"
         />
       </div>
-      <div className="container-fluid flex-grow-1 pt-2 pb-4 px-3">
-        <div className="input-group h-100">
-          <textarea
-            {...register('body')}
-            onChange={(e) => {
-              setFormInput({ ...formInput, body: e.target.value });
-            }}
-            className="form-control"
-            value={formInput.body}
-          />
-        </div>
-      </div>
-      <input {...register('stuff')} type="file" name="stuff" placeholder="Attachment" />
-      <nav className="navbar navbar-dark bg-dark">
-        <div className="container-fluid">
-          <button type="button" onClick={deleteForm} className="btn btn-outline-danger mx-2">
-            Delete
-          </button>
 
-          <button type="submit" onClick={() => console.log('send')} className="btn btn-outline-info mx-2">
-            Send
-          </button>
-        </div>
+      <div className="container-fluid input-group h-100 p-3">
+        <textarea
+          {...register('body')}
+          onChange={(e) => {
+            setFormInput({ ...formInput, body: e.target.value });
+          }}
+          className="form-control"
+          value={formInput.body}
+        />
+      </div>
+
+      <input
+        className="form-control mb-2 mx-3 m-auto"
+        {...register('stuff')}
+        type="file"
+        name="stuff"
+        placeholder="Attachment"
+      />
+      <nav className="container-fluid navbar navbar-dark bg-dark">
+        <button type="button" onClick={deleteForm} className="btn btn-outline-danger mx-2">
+          Delete
+        </button>
+
+        <button type="submit" onClick={() => console.log('send')} className="btn btn-outline-info ms-auto mx-2">
+          Send
+        </button>
       </nav>
     </form>
   );

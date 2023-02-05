@@ -10,7 +10,7 @@ export const PageLink = ({ pageNumber }: PageLinkProps) => {
 
   return (
     <li className="page-item">
-      <a className="page-link" href="#" onClick={() => setCurrentPage(pageNumber)}>
+      <a className="page-link bg-dark link-info" onClick={() => setCurrentPage(pageNumber)}>
         {pageNumber}
       </a>
     </li>

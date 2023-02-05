@@ -5,7 +5,7 @@ import { Routes, Route } from 'react-router-dom';
 
 export const MainSection = () => {
   return (
-    <div className="d-flex flex-column align-items-stretch justify-content-between flex-grow-1 bg-white">
+    <div className="d-flex flex-column justify-content-between flex-grow-1 bg-white">
       <MainSectionUpperBar />
       <Routes>
         <Route path="email/:id" element={<EmailViewArea />} />
