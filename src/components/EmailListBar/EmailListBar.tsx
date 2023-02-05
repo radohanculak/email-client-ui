@@ -15,12 +15,14 @@ export const EmailListBar = () => {
   const currentMailbox = useRecoilValue(currentMailboxState);
   const currentPage = useRecoilValue(currentPageState);
   const [previousCount, setPrevCount] = useState<number>();
+  const [previousMailbox, setPrevMailbox] = useState<string>();
+  const [fetchTrigger, setFetchTrigger] = useState<boolean>(false);
 
   const getPreviews = (data: listEmailsRequest) => {
     client
       .listEmails(data)
       .then((res) => {
-        if (currentPage - 1 == data.requested_page_number) {
+        if (currentPage - 1 == data.requested_page_number && currentMailbox == res.data.mailbox_name) {
           setEmailPreviews(res.data);
         }
       })
@@ -33,25 +35,25 @@ export const EmailListBar = () => {
     page_size: 4,
   };
 
-  useEffect(() => getPreviews(reqData), [currentMailbox, currentPage]);
+  useEffect(() => getPreviews(reqData), [currentMailbox, currentPage, fetchTrigger]);
+
   useEffect(() => {
     const interval = setInterval(() => {
-      getPreviews(reqData)
+      setFetchTrigger(fetchTrigger => !fetchTrigger);
     }, REFRESH_TIMER_MS);
-    console.log("Mounting");
     return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
   }, [])
+
   useEffect(() => {
-    if (previousCount && emailPreviews?.total_emails_count != previousCount && currentMailbox == "INBOX"){
+    if (previousCount && previousMailbox && emailPreviews?.total_emails_count != previousCount && currentMailbox == previousMailbox){
       client.sendNotifitcation({
         title: 'R-Mail',
-        body: 'New email received'
+        body: 'New email detected in ' + currentMailbox
       });
     }
 
-    if (currentMailbox == "INBOX"){
-      setPrevCount(emailPreviews?.total_emails_count);
-    }
+    setPrevCount(emailPreviews?.total_emails_count);
+    setPrevMailbox(emailPreviews?.mailbox_name);
   }, [emailPreviews]);
 
   return (
