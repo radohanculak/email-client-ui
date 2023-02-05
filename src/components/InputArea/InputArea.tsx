@@ -5,15 +5,17 @@ import { client } from '../../client/email-client';
 import { sendEmailRequest } from '../../client/requests';
 
 export const InputArea = () => {
-  const [{ recipient, subject, body }, setFormInput] = useRecoilState(inputFormState);
+  const [formInput, setFormInput] = useRecoilState(inputFormState);
   const deleteForm = useResetRecoilState(inputFormState);
   const { register, handleSubmit } = useForm();
 
   const sendEmail = async (data: any) => {
-    console.log(data);
     await client
       .sendEmail(data as sendEmailRequest)
       .then((res) => {
+        if (res.status === 200) {
+          alert('Email Sent!');
+        }
         console.log(res);
       })
       .catch((err) => console.log(err));
@@ -28,9 +30,9 @@ export const InputArea = () => {
         <input
           {...register('to_address')}
           type="email"
-          value={recipient}
+          value={formInput.recipient}
           onChange={(e) => {
-            setFormInput({ recipient: e.target.value, subject: subject, body: body });
+            setFormInput({ ...formInput, recipient: e.target.value });
           }}
           className="form-control"
           placeholder="To"
@@ -43,9 +45,9 @@ export const InputArea = () => {
         <input
           {...register('subject')}
           type="text"
-          value={subject}
+          value={formInput.subject}
           onChange={(e) => {
-            setFormInput({ subject: e.target.value, recipient: recipient, body: body });
+            setFormInput({ ...formInput, subject: e.target.value });
           }}
           className="form-control"
           placeholder="Subject"
@@ -56,10 +58,10 @@ export const InputArea = () => {
           <textarea
             {...register('body')}
             onChange={(e) => {
-              setFormInput({ body: e.target.value, subject: subject, recipient: recipient });
+              setFormInput({ ...formInput, body: e.target.value });
             }}
             className="form-control"
-            value={body}
+            value={formInput.body}
           />
         </div>
       </div>
@@ -70,7 +72,7 @@ export const InputArea = () => {
             Delete
           </button>
 
-          <button type="submit" onClick={(e) => console.log('send')} className="btn btn-outline-info mx-2">
+          <button type="submit" onClick={() => console.log('send')} className="btn btn-outline-info mx-2">
             Send
           </button>
         </div>

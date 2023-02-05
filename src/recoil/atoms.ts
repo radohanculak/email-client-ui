@@ -1,31 +1,30 @@
-import { atom } from "recoil";
-import { emailDetailRequest } from "../client/requests";
-import DisplayedEmail from "../models/displayedEmail";
-import EmailInput from "../models/emailInput";
+import { atom } from 'recoil';
+import { emailDetailRequest } from '../client/requests';
+import EmailInput from '../models/emailInput';
 
 export const inputFormState = atom<EmailInput>({
   key: 'inputFormState',
-  default: {recipient: '', subject: '', body: ''},
+  default: { recipient: '', subject: '', body: '' },
 });
 
 export const currentMailboxState = atom<string>({
   key: 'currentMailboxState',
-  default: 'INBOX'
-})
+  default: 'INBOX',
+});
 
 export const isLoggedInState = atom<boolean>({
   key: 'isLoggedInState',
-  default: false
-})
+  default: false,
+});
 
 export const currentPageState = atom<number>({
   key: 'currentPageState',
-  default: 1
-})
+  default: 1,
+});
 
 export const currentEmailState = atom<emailDetailRequest>({
   key: 'currentEmailState',
-  default: {mailbox_name: 'INBOX', sequence_number: 1}
-})
+  default: { mailbox_name: 'INBOX', sequence_number: 1 },
+});
 
 export default { inputFormState, currentMailboxState, isLoggedInState, currentPageState };

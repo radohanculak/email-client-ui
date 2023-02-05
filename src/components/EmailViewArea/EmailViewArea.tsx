@@ -6,7 +6,6 @@ import { emailDetailRequest } from '../../client/requests';
 import emptyEmailDetail from '../../models/emptyEmailDetail';
 import { useEffect, useState } from 'react';
 import fileDownload from 'js-file-download';
-import { downloadAttachmentRequest } from '../../client/requests';
 
 export const EmailViewArea = () => {
   const currentEmail = useRecoilValue(currentEmailState);
@@ -14,7 +13,7 @@ export const EmailViewArea = () => {
 
   const { id } = useParams();
   if (id != String(currentEmail.sequence_number)) {
-    navigate("/");
+    navigate('/');
   }
   const [fetchedEmail, setFetchedEmail] = useState(emptyEmailDetail);
 

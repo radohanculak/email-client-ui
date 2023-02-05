@@ -1,7 +1,7 @@
 import Sidebar from './components/Sidebar/Sidebar';
 import EmailListBar from './components/EmailListBar/EmailListBar';
 import MainSection from './components/MainSection/MainSection';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { isLoggedInState } from './recoil/atoms';
 import LogIn from './components/LogIn/LogIn';
 
