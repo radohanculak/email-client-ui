@@ -3,10 +3,10 @@ import { useEffect, useState } from 'react';
 import SidebarButton from '../SidebarButton/SidebarButton';
 import SidebarDropdown from '../SidebarDropdown/SidebarDropdown';
 import { client } from '../../client/email-client';
-
-import './Sidebar.css';
 import { useSetRecoilState } from 'recoil';
 import { currentMailboxState } from '../../recoil/atoms';
+
+import './Sidebar.css';
 
 export const Sidebar = () => {
   const [mailboxes, setMailboxes] = useState([]);

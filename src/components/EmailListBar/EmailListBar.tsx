@@ -2,9 +2,9 @@ import PaginationBar from '../PaginationBar/PaginationBar';
 import EmailPreview from '../EmailPreview/EmailPreview';
 import EmailPreviewModel from '../../models/emailPreviewModel';
 import { listEmailsRequest } from '../../client/requests';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { client } from '../../client/email-client';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { currentMailboxState, currentPageState } from '../../recoil/atoms';
 import ListEmailsModel from '../../models/listEmails';
 
@@ -36,20 +36,21 @@ export const EmailListBar = () => {
   useEffect(() => getPreviews(reqData), [currentMailbox, currentPage]);
   useEffect(() => {
     const interval = setInterval(() => {
-      getPreviews(reqData)
+      getPreviews(reqData);
     }, REFRESH_TIMER_MS);
-    console.log("Mounting");
+    console.log('Mounting');
     return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
-  }, [])
+  }, []);
+
   useEffect(() => {
-    if (previousCount && emailPreviews?.total_emails_count != previousCount && currentMailbox == "INBOX"){
+    if (previousCount && emailPreviews?.total_emails_count != previousCount && currentMailbox == 'INBOX') {
       client.sendNotifitcation({
         title: 'R-Mail',
-        body: 'New email received'
+        body: 'New email received',
       });
     }
 
-    if (currentMailbox == "INBOX"){
+    if (currentMailbox == 'INBOX') {
       setPrevCount(emailPreviews?.total_emails_count);
     }
   }, [emailPreviews]);

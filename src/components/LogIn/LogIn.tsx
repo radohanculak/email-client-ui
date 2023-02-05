@@ -1,6 +1,5 @@
 import { useForm } from 'react-hook-form';
 import { useSetRecoilState } from 'recoil';
-
 import { client } from '../../client/email-client';
 import { signInRequest } from '../../client/requests';
 import { isLoggedInState } from '../../recoil/atoms';
@@ -16,7 +15,7 @@ export const LogIn = () => {
         if (r.status === 200) {
           client.sendNotifitcation({
             title: 'R-Mail',
-            body: 'Authentication successful'
+            body: 'Authentication successful',
           });
           setLogInState(true);
         }

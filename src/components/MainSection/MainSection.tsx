@@ -1,7 +1,7 @@
 import MainSectionUpperBar from '../MainSectionUpperBar/MainSectionUpperBar';
 import InputArea from '../InputArea/InputArea';
 import EmailViewArea from '../EmailViewArea/EmailViewArea';
-import { Routes, Route, useParams } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 export const MainSection = () => {
   return (
