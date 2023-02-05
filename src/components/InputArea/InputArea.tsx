@@ -14,7 +14,10 @@ export const InputArea = () => {
       .sendEmail(data as sendEmailRequest)
       .then((res) => {
         if (res.status === 200) {
-          alert('Email Sent!');
+          client.sendNotifitcation({
+            title: 'R-Mail',
+            body: 'Email Sent!'
+          });
         }
         console.log(res);
       })
