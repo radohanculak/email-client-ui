@@ -5,7 +5,7 @@ export const MainSectionUpperBar = () => {
     <nav className="navbar navbar-dark bg-dark">
       <div className="d-flex container-fluid justify-content-end">
         <Link to="/compose">
-          <button type="button" className="btn btn-outline-info mx-2">
+          <button type="button" className="btn btn-outline-info me-2">
             New Email
           </button>
         </Link>

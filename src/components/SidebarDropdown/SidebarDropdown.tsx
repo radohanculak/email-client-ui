@@ -8,7 +8,7 @@ export const SidebarDropdown = () => {
   const signOutHandler = async () => {
     await client
       .signOut()
-      .then((r) => console.log(r))
+      .then()
       .catch((e) => console.log(e));
     setLogInState(false);
   };

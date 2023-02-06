@@ -69,19 +69,16 @@ export const InputArea = () => {
         />
       </div>
 
-      <input
-        className="form-control mb-2 mx-3 m-auto"
-        {...register('stuff')}
-        type="file"
-        name="stuff"
-        placeholder="Attachment"
-      />
+      <div className="p-3">
+        <input className="form-control" {...register('stuff')} type="file" name="stuff" placeholder="Attachment" />
+      </div>
+
       <nav className="container-fluid navbar navbar-dark bg-dark">
         <button type="button" onClick={deleteForm} className="btn btn-outline-danger mx-2">
           Delete
         </button>
 
-        <button type="submit" onClick={() => console.log('send')} className="btn btn-outline-info ms-auto mx-2">
+        <button type="submit" className="btn btn-outline-info ms-auto me-3">
           Send
         </button>
       </nav>
