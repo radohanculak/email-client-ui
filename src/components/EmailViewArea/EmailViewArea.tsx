@@ -10,8 +10,8 @@ import fileDownload from 'js-file-download';
 export const EmailViewArea = () => {
   const currentEmail = useRecoilValue(currentEmailState);
   const navigate = useNavigate();
-
   const { id } = useParams();
+
   useEffect(() => {
     if (id != String(currentEmail.sequence_number)) {
       navigate('/');
@@ -28,8 +28,6 @@ export const EmailViewArea = () => {
   };
 
   const getEmail = (data: emailDetailRequest) => {
-    console.log('tryng to fetch email:');
-    console.log(data);
     client
       .getEmailInDetail(data)
       .then((res) => {
@@ -40,7 +38,6 @@ export const EmailViewArea = () => {
   };
 
   const downloadAttachments = () => {
-    console.log('download attachments');
     fetchedEmail.attachments.map((a: any) => {
       client
         .downloadAttachment({
@@ -73,9 +70,11 @@ export const EmailViewArea = () => {
           <textarea className="form-control" value={fetchedEmail.body_text} readOnly={true} />
         </div>
       </div>
-      <div className="container-fluid">
-        Attachments:
-        <div className="input-group h-50">
+      {fetchedEmail.attachments.length > 0 && (
+        <div className="input-group px-2 py-2">
+          <span className="input-group-text" id="basic-addon1">
+            Attachments:
+          </span>
           <textarea
             className="form-control"
             value={fetchedEmail.attachments.map((a: any) => a.file_name)}
@@ -85,7 +84,8 @@ export const EmailViewArea = () => {
             Download
           </button>
         </div>
-      </div>
+      )}
+
       <nav className="navbar navbar-dark bg-dark">
         <div className="container-fluid">
           <button

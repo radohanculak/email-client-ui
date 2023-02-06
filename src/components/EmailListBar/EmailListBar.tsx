@@ -2,9 +2,9 @@ import PaginationBar from '../PaginationBar/PaginationBar';
 import EmailPreview from '../EmailPreview/EmailPreview';
 import EmailPreviewModel from '../../models/emailPreviewModel';
 import { listEmailsRequest } from '../../client/requests';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { client } from '../../client/email-client';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { currentMailboxState, currentPageState } from '../../recoil/atoms';
 import ListEmailsModel from '../../models/listEmails';
 
@@ -39,16 +39,21 @@ export const EmailListBar = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setFetchTrigger(fetchTrigger => !fetchTrigger);
+      setFetchTrigger((fetchTrigger) => !fetchTrigger);
     }, REFRESH_TIMER_MS);
     return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
-  }, [])
+  }, []);
 
   useEffect(() => {
-    if (previousCount && previousMailbox && emailPreviews?.total_emails_count != previousCount && currentMailbox == previousMailbox){
+    if (
+      previousCount &&
+      previousMailbox &&
+      emailPreviews?.total_emails_count != previousCount &&
+      currentMailbox == previousMailbox
+    ) {
       client.sendNotifitcation({
         title: 'R-Mail',
-        body: 'New email detected in ' + currentMailbox
+        body: 'New email detected in ' + currentMailbox,
       });
     }
 
