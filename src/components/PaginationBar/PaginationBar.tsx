@@ -2,7 +2,11 @@ import { useRecoilState } from 'recoil';
 import { currentPageState } from '../../recoil/atoms';
 import PageLink from './PageLink/PageLink';
 
-export const PaginationBar = () => {
+interface PaginationBarProps {
+  maxPage: number;
+}
+
+export const PaginationBar = ({ maxPage }: PaginationBarProps) => {
   const [currentPage, setCurrentPage] = useRecoilState(currentPageState);
   // guard min/max page
 
@@ -15,6 +19,7 @@ export const PaginationBar = () => {
             href="#"
             aria-label="Previous"
             onClick={() => {
+              // eslint-disable-next-line @typescript-eslint/no-unused-expressions
               currentPage > 1 ? setCurrentPage(currentPage - 1) : setCurrentPage(1);
             }}
           >
@@ -27,7 +32,10 @@ export const PaginationBar = () => {
             className="page-link bg-dark link-info"
             href="#"
             aria-label="Next"
-            onClick={() => setCurrentPage(currentPage + 1)}
+            onClick={() => {
+              // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+              currentPage < maxPage ? setCurrentPage(currentPage + 1) : setCurrentPage(maxPage);
+            }}
           >
             <span aria-hidden="true">&raquo;</span>
           </a>

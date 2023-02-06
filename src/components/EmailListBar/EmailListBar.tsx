@@ -32,7 +32,7 @@ export const EmailListBar = () => {
   const reqData = {
     mailbox_name: currentMailbox,
     requested_page_number: currentPage - 1, // On BE Indexing is from 0
-    page_size: 4,
+    page_size: 10,
   };
 
   useEffect(() => getPreviews(reqData), [currentMailbox, currentPage, fetchTrigger]);
@@ -61,6 +61,7 @@ export const EmailListBar = () => {
     setPrevMailbox(emailPreviews?.mailbox_name);
   }, [emailPreviews]);
 
+  const maxPage = Math.ceil((emailPreviews?.total_emails_count ?? 1) / reqData.page_size);
   return (
     <div
       className="d-flex flex-column justify-content-between align-items-stretch flex-shrink-1 bg-white"
@@ -68,7 +69,7 @@ export const EmailListBar = () => {
     >
       <nav className="navbar flex-shrink-0 navbar-dark bg-dark" style={{ height: '54px' }} />
 
-      <div className="d-flex list-group list-group-flush flex-column-reverse justify-content-end flex-grow-1 scrollarea">
+      <div className="d-flex list-group list-group-flush flex-grow-1 scrollarea">
         {emailPreviews?.emails.map((email: EmailPreviewModel) => (
           <EmailPreview
             key={email.subject + email.send_date}
@@ -80,7 +81,7 @@ export const EmailListBar = () => {
           />
         ))}
       </div>
-      <PaginationBar />
+      <PaginationBar maxPage={maxPage} />
     </div>
   );
 };
