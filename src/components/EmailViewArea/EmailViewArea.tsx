@@ -2,7 +2,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { client } from '../../client/email-client';
 import { currentEmailState } from '../../recoil/atoms';
-import { emailDetailRequest } from '../../client/requests';
+import { deleteEmailRequest, emailDetailRequest } from '../../client/requests';
 import emptyEmailDetail from '../../models/emptyEmailDetail';
 import { useEffect, useState } from 'react';
 import fileDownload from 'js-file-download';
@@ -12,10 +12,20 @@ export const EmailViewArea = () => {
   const navigate = useNavigate();
 
   const { id } = useParams();
-  if (id != String(currentEmail.sequence_number)) {
-    navigate('/');
-  }
+  useEffect(() => {
+    if (id != String(currentEmail.sequence_number)) {
+      navigate('/');
+    }
+  }, [id]);
+
   const [fetchedEmail, setFetchedEmail] = useState(emptyEmailDetail);
+
+  const deleteEmail = (data: deleteEmailRequest) => {
+    client
+      .deleteEmail(data)
+      .then()
+      .catch((err) => console.log(err));
+  };
 
   const getEmail = (data: emailDetailRequest) => {
     console.log('tryng to fetch email:');
@@ -76,10 +86,19 @@ export const EmailViewArea = () => {
           </button>
         </div>
       </div>
-      <div> {fetchedEmail.body_text}</div>
       <nav className="navbar navbar-dark bg-dark">
         <div className="container-fluid">
-          <button type="button" className="btn btn-outline-danger mx-2">
+          <button
+            type="button"
+            onClick={() =>
+              deleteEmail({
+                mailbox_name: currentEmail.mailbox_name,
+                sequence_set_top: currentEmail.sequence_number,
+                sequence_set_bottom: currentEmail.sequence_number,
+              })
+            }
+            className="btn btn-outline-danger mx-2"
+          >
             Delete
           </button>
 

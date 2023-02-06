@@ -28,7 +28,6 @@ class EmailClient {
     formData.append('subject', sendEmailRequest.subject);
     formData.append('body', sendEmailRequest.body);
     formData.append('stuff', sendEmailRequest.stuff[0]);
-    console.log(sendEmailRequest.stuff[0]);
     return axios.post(url + '/api/email/send', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -67,7 +66,7 @@ class EmailClient {
   }
 
   deleteEmail(deleteEmailRequest: requests.deleteEmailRequest) {
-    return axios.delete(url + 'api/email', {
+    return axios.delete(url + '/api/email', {
       params: deleteEmailRequest,
       headers: {
         'Content-Type': 'application/json',

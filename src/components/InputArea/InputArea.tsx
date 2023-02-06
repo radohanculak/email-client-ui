@@ -16,7 +16,7 @@ export const InputArea = () => {
         if (res.status === 200) {
           client.sendNotifitcation({
             title: 'R-Mail',
-            body: 'Email Sent!'
+            body: 'Email Sent!',
           });
         }
         console.log(res);
